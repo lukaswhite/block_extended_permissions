@@ -1,0 +1,6 @@
+name = Extended Block Permissions
+description = Extends the available permissions for mnodifying blocks to give more granularity
+package = Extras
+dependencies[]  = block
+version = VERSION
+core = 7.x

@@ -1,0 +1,67 @@
+<?php
+/**
+ * block_extended_permissions module
+ * 
+ * Simply extends the block module to offer more granular permissions.
+ * 
+ * For example, you may wish to create blocks and allow site users to modify their content,
+ * but not move them.
+ * 
+ * People with the "administer blocks" permission will get an empty form if they aren't assigned 
+ * at least one permission, so use common sense
+ * 
+ * @author Lukas White <lukas.white@gmail.com>
+ */
+
+/**
+ * Implement hook_form_FORM_ID_alter().
+ */
+function block_extended_permissions_form_block_admin_configure_alter(&$form, &$form_state, $form_id) {
+  
+  if (isset($form['settings']['title'])) {
+    $form['settings']['title']['#access'] = user_access('edit block titles');
+  }
+	if (isset($form['settings']['info'])) {
+    $form['settings']['info']['#access'] = user_access('edit block descriptions');
+  }
+	if (isset($form['settings']['body_field'])) {
+    $form['settings']['body_field']['#access'] = user_access('edit block content');
+  }	
+	if (isset($form['regions'])) {
+    $form['regions']['#access'] = user_access('edit block regions');
+  }
+	if (isset($form['visibility'])) {
+    $form['visibility']['#access'] = user_access('edit block visibility');
+  }
+	if (isset($form['visibility_title'])) {
+    $form['visibility_title']['#access'] = user_access('edit block visibility');
+  }		
+}
+
+/*
+ * Implement hook_permission().
+ */
+function block_extended_permissions_permission() {
+  return array(
+    'edit block titles' => array(
+      'title' => t('Edit block titles'),
+      'description' => t('Able to edit block titles.'),
+    ),
+    'edit block descriptions' => array(
+      'title' => t('Edit block descriptions'),
+      'description' => t('Able to edit block descriptions.'),
+    ),
+    'edit block content' => array(
+      'title' => t('Edit block content'),
+      'description' => t('Able to edit block content.'),
+    ),
+    'edit block regions' => array(
+      'title' => t('Edit block regions'),
+      'description' => t('Able to move blocks from region to region.'),
+    ),
+    'edit block visibility' => array(
+      'title' => t('Edit block visibility'),
+      'description' => t('Able to modify the visibility of blocks.'),
+    ),
+  );
+}

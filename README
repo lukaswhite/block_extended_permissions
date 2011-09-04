@@ -1,0 +1,14 @@
+block_extended_permissions module
+---------------------------------
+
+This very simple module extends Drupal 7's block permissions to make them more granular.
+
+Example scenario; you  may wish to create blocks and allow site users to modify their content,
+but not move them. In this case you would grant the appropriate role the permissions "edit block titles"
+and "edit block description" but not "edit block description", "edit block regions" or "edit block visibility"
+
+Note that people with the "administer blocks" permission will get an empty form if they aren't assigned at least
+one permission, so please use common sense.
+
+Lukas White
+www.lukaswhite.com
